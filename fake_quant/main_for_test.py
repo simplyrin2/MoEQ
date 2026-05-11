@@ -16,12 +16,6 @@ import os
 def main():
     args = args_config_gen.parser_gen()
 
-    if args.r1_path and '.pt' not in args.r1_path and '.bin' not in args.r1_path:
-        args.r1_path += '/' + args.r1_path.split('/')[-1] + '.pt'
-
-    if args.r2_path and '.pt' not in args.r2_path and '.bin' not in args.r2_path:
-        args.r2_path += '/' + args.r2_path.split('/')[-1] + '.pt'
-
     if args.wandb:
         import wandb
         wandb.init(project=args.wandb_project, entity=args.wandb_id)
@@ -104,7 +98,6 @@ def main():
             folder_name += f'_w{args.w_bits}'
             folder_name += '_r1' if args.use_r1 else ''
             folder_name += '_r2' if args.use_r2 != 'none' else ''
-            folder_name += '' if args.r2_path else '_r'
             folder_name += '_r3' if args.use_r3 else ''
             folder_name += '_r4' if args.use_r4 else ''
             folder_name += '_rtn' if args.w_rtn else '_gptq'

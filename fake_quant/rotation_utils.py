@@ -332,18 +332,6 @@ def rotate_ov_proj(layer, model_type, head_dim, kv_head,
         # apply_exact_had_to_linear(o_proj, had_dim=-1, output=False)
         apply_exact_had_to_linear(o_proj, had_dim=head_dim, output=False)
 
-    if 'offline' in use_r2:  
-        if r2_matrices is not None:
-            # Grab it from RAM, not the hard drive
-            Q = r2_matrices[f"model.layers.{l_id}.self_attn.R2"].to(device=utils.DEV, dtype=torch.float64)
-        else:
-            Q = get_orthogonal_matrix(head_dim, r2_mode)
-            if len(Q.shape) != 3:
-                Q = Q.repeat(kv_head, 1, 1)
-                
-        apply_multi_head_rotate(v_proj, Q, head_dim, l_id, kv_head, output=True, smooth=smooth)
-        apply_multi_head_rotate(o_proj, Q, head_dim, l_id, kv_head, output=False, smooth=smooth)
-
 
 def apply_multi_head_rotate(module, Q, head_dim, l_id,
                             kv_head, output=False,
@@ -396,13 +384,6 @@ def rotate_model(model, args):
         logging.info(f'Use smooth scale load from: {args.smooth}')
 
     r2_matrices = None
-    # if args.use_r2 == 'offline' and args.r2_path is not None:
-    #     # Check if the path points to a file, not a directory
-    #     if os.path.isfile(args.r2_path):
-    #         logging.info(f'Loading R2 matrices from: {args.r2_path}')
-    #         r2_matrices = torch.load(args.r2_path, map_location='cpu')
-    #     else:
-    #         raise ValueError(f"args.r2_path must point to a .pt file, but got: {args.r2_path}")
 
     config = model.config
     num_heads = config.num_attention_heads
