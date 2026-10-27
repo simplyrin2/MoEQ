@@ -1,4 +1,9 @@
 # Code for QuaRot integration with Mixture-of-Experts
+
+<p align="center">
+  <img src="assets/quarot_moe.png" alt="QuaRot on Mixture-of-Experts (MoE) Quantization" width="100%">
+</p>
+
 ## 1. Requirements:
 - python 3.10, pytorch >= 2.0
 - install pytorch with cuda from https://pytorch.org/get-started/locally/, it is prerequisite for fast-hadamard-transform package.
