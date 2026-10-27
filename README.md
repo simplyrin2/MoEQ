@@ -1,7 +1,7 @@
 # Code for QuaRot integration with Mixture-of-Experts
 
 <p align="center">
-  <img src="assets/quarot_moe.png" alt="QuaRot on Mixture-of-Experts (MoE) Quantization" width="100%">
+  <img width="100%" alt="QuaRot on Mixture-of-Experts (MoE) Quantization" src="https://github.com/user-attachments/assets/5ac1493a-ab2c-43a8-847e-2b3028508842" />
 </p>
 
 ## 1. Requirements:
